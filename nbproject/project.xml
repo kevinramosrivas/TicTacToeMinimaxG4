@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.java.j2seproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
-            <name>TicTacToeG4</name>
+            <name>TicTacToe_ADA_G4</name>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

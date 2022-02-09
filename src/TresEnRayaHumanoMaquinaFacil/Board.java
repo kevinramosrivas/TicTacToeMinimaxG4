@@ -83,7 +83,9 @@ public class Board {
         }
         System.out.println();
     }
-    // por profundidad se entiende al nivel al que se encuentra en un arbol recursivo
+    
+    //este metodo solo se encarga de hacer un movimiento aleatorio
+    //en puntos donde aun no se marco
     public void moverAleatorio(){
         int i = 0;
         List<Point> celdasDisponibles = getCeldasDisponibles();
@@ -103,6 +105,8 @@ public class Board {
             }
         }
     }
+    //utilizamos este metodo para limpiar el tablero de todas las jugadas
+    //este metodo es utilizado en la GUI al pulsar el boton reiniciar
     public void limpiar(){
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){

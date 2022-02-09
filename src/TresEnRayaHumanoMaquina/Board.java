@@ -115,13 +115,16 @@ public class Board {
             if(turno == PLAYER_X){
                 hacerUnMovimiento(point,PLAYER_X);
                 int puntajeActual = minimax(profundidad+1,PLAYER_O);
+                //utilizamos Math.max para comparar cual es mayor
+                // si el anterior valor max o el nuevo obtenido de puntajeActual
+                //utilizamos esto para maximizar la jugada de X 
                 max = Math.max(puntajeActual,max);
-                // si ya se hallo todas las posibilidades de poner una x en el tablero
+                // si ya se hallo la puntuacion de toda una rama del arbol recursivo
                 if(profundidad == 0){
                     System.out.println("Puntaje de la computadora para la posicion: "+point+"="+puntajeActual);
                 }
-                // si en el punto escogido nos genero una vitoria                
-                // este if se da como verdadero cuando ya se gano pero no rellenamos todo el tablero
+                // si en el punto escogido nos genero una victoria o empate              
+                // segun la funcion de evaluacion
                 if(puntajeActual >= 0){
                     if(profundidad == 0){
                         movimientoComputadora = point;
@@ -133,34 +136,40 @@ public class Board {
                     board[point.x][point.y] = NO_PLAYER;
                     break;
                 }
-                // si en el punto escogido nos genero una vitoria
-                // hacemos que movimientoComputadora tenga el valor de este punto
-                //esto es en caso de un empate
-                //posible borrado
+                //si acabamos todas las posibilidades de puntos disponibles 
+                // escogemos el punto que quede
                 if(i==celdasDisponibles.size()-1 && max<0){
                     if(profundidad==0){
-                        System.out.println("xd");
                         movimientoComputadora = point;
                     }
                 }
             }
             //si es turno de O esta condicion se cumplira
+            //marcaremos en el tablero la jugada de O
             else if(turno == PLAYER_O){
                 hacerUnMovimiento(point,PLAYER_O);
                 int puntajeActual = minimax(profundidad+1,PLAYER_X);
+                //utilizamos Math.min para comparar cual es menor
+                // si el anterior valor min o el nuevo obtenido de puntajeActual
+                //utilizamos esto para minimizar la jugada de X 
                 min = Math.min(puntajeActual,min);
                 
                 if(min == -1){
                     board[point.x][point.y] = NO_PLAYER;    
                 }
             }
-            
+            //como modificamos el tablero al analizar las diferentes posiciones 
+            // volvemos los valores a su estado inicial NO_PLAYER
             board[point.x][point.y]=NO_PLAYER;
         }
-        
+        //ya que utilizamos un algoritmo recursivo retornamo
+        // si en caso es turno del jugador x(la computadora) retornamos el max
+        // en caso de que no se cumple la condicion retornamos el valor min
         return turno == PLAYER_X ? max:min;
     
     }
+    //utilizamos este metodo para limpiar el tablero de todas las jugadas
+    //este metodo es utilizado en la GUI al pulsar el boton reiniciar
     public void limpiar(){
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
